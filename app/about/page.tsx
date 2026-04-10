@@ -1,39 +1,43 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Github, Instagram, Facebook, Twitter, ArrowLeft } from "lucide-react";
+// すべての頭文字を大文字、hなどは小文字に統一
+import {  Code } from "lucide-react";
+import { Camera } from "lucide-react";
+import { MessageCircle } from "lucide-react";
+import { Send} from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 export default function About() {
   const socialLinks = [
     {
       name: "Instagram",
       url: "https://www.instagram.com/kanaiyuta_07/",
-      icon: <Instagram className="text-pink-600" />,
+      icon: <Camera className="text-pink-600" />,
       id: "@kanaiyuta_07"
     },
     {
       name: "X (Twitter)",
       url: "https://x.com/kanaiyuuta",
-      icon: <Twitter className="text-sky-500" />,
+      icon: <Send className="text-sky-500" />,
       id: "@kanaiyuuta"
     },
     {
       name: "Facebook",
       url: "https://www.facebook.com/profile.php?id=100074776384590",
-      icon: <Facebook className="text-blue-700" />,
+      icon: <MessageCircle className="text-blue-700" />,
       id: "Yuta Kanai"
     },
     {
       name: "GitHub",
       url: "https://github.com/presidentkanai",
-      icon: <Github className="text-slate-900" />,
+      icon: <Code className="text-slate-900" />,
       id: "presidentkanai"
     }
   ];
 
   return (
     <div className="min-h-screen bg-white text-slate-800 p-8 md:p-24 max-w-4xl mx-auto font-sans">
-      {/* 戻るボタン */}
       <Link href="/" className="group flex items-center gap-2 text-sm text-red-600 font-bold mb-12 hover:opacity-70 transition-all">
         <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
         Back to Home
@@ -44,7 +48,6 @@ export default function About() {
         animate={{ opacity: 1, y: 0 }}
         className="space-y-12"
       >
-        {/* タイトル：KANAI.YUTAと同じフォント設定 */}
         <h1 className="text-5xl md:text-7xl font-black text-slate-950 tracking-tighter">
           About Me
         </h1>
@@ -54,12 +57,8 @@ export default function About() {
             千葉工業大学 情報通信システム工学科。
             モータースポーツの「速さ」とWeb3の「透明性」を融合させ、次世代のビジネスモデルを構築することに情熱を注いでいます。
           </p>
-          <p>
-            技術を単なるツールとしてではなく、勝負の世界を加速させるエンジンとして捉え、日々開発に取り組んでいます。
-          </p>
         </div>
 
-        {/* SNSリンクセクション */}
         <section className="pt-12 border-t border-slate-100">
           <h2 className="text-2xl font-black text-slate-950 mb-8 tracking-tighter uppercase">Connect</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

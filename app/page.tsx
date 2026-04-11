@@ -17,25 +17,30 @@ export default function Home() {
   const cards = [
     {
       title: "About Me",
-      className: "md:col-span-2 bg-gradient-to-br from-blue-50/50 to-white",
+      // md(768px)以上で2列分、それ未満では1列
+      gridClass: "md:col-span-2",
+      bgClass: "bg-gradient-to-br from-blue-50/50 to-white",
       icon: <Globe className="text-blue-600" size={24} />,
       link: "/about"
     },
     {
       title: "Class",
-      className: "md:col-span-1 bg-white",
+      gridClass: "md:col-span-1",
+      bgClass: "bg-white",
       icon: <Trophy className="text-yellow-600" size={24} />,
       link: "/class"
     },
     {
       title: "Main Project",
-      className: "md:col-span-1 bg-white",
+      gridClass: "md:col-span-1",
+      bgClass: "bg-white",
       icon: <Cpu className="text-red-600" size={24} />,
       link: "/othello"
     },
     {
       title: "Vision",
-      className: "md:col-span-2 bg-red-50/50",
+      gridClass: "md:col-span-2",
+      bgClass: "bg-red-50/50",
       icon: <ExternalLink className="text-red-500" size={24} />,
       link: "#"
     }
@@ -57,7 +62,6 @@ export default function Home() {
               transition={{ duration: 3, ease: "linear" }}
               className="whitespace-nowrap"
             >
-              {/* スマホでは文字サイズを少し抑える (text-[18vw] md:text-[12vw]) */}
               <h1 
                 className="text-[18vw] md:text-[12vw] font-black tracking-tighter uppercase animate-rainbow-shimmer"
                 style={{
@@ -81,8 +85,7 @@ export default function Home() {
           >
             {/* ヒーローセクション */}
             <header className="mb-12 md:mb-20 space-y-4">
-              {/* スマホで文字がはみ出ないよう text-5xl に調整 */}
-              <h1 className="text-5xl sm:text-7xl md:text-9xl font-black text-slate-950 tracking-tighter leading-none">
+              <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-slate-950 tracking-tighter leading-[0.8]">
                 KANAI<span className="text-red-600">.</span>YUTA
               </h1>
               <div className="flex flex-wrap items-center gap-3 md:gap-4">
@@ -96,23 +99,23 @@ export default function Home() {
             </header>
 
             {/* 弁当箱（Bento Grid） */}
-            {/* スマホでは1列、PC(md以上)では3列 */}
-            <main className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* md(768px)以上で3列、それ未満は1列に強制 */}
+            <main className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
               {cards.map((card, index) => (
-                <Link href={card.link} key={index} className={`${card.className} block`}>
+                <Link href={card.link} key={index} className={`${card.gridClass} w-full`}>
                   <motion.div
                     initial={{ opacity: 0, scale: 0.98 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: index * 0.1 }}
                     whileHover={{ y: -5, borderColor: "#dc2626" }}
-                    className={`p-8 md:p-10 rounded-3xl border border-slate-100 flex flex-col justify-between transition-all min-h-[180px] md:min-h-[250px] h-full cursor-pointer shadow-sm hover:shadow-md bg-opacity-50`}
+                    className={`p-8 md:p-10 rounded-3xl border border-slate-100 flex flex-col justify-between transition-all min-h-[200px] md:min-h-[280px] h-full cursor-pointer shadow-sm hover:shadow-md ${card.bgClass}`}
                   >
-                    <div className="flex justify-between items-start mb-4">
-                      <div className="p-2 md:p-3 bg-slate-50 rounded-2xl">{card.icon}</div>
-                      <ExternalLink size={16} className="text-slate-200" />
+                    <div className="flex justify-between items-start mb-6">
+                      <div className="p-2 md:p-3 bg-white/80 rounded-2xl shadow-sm">{card.icon}</div>
+                      <ExternalLink size={16} className="text-slate-300" />
                     </div>
-                    {/* スマホでのカード内タイトルサイズを text-2xl に調整 */}
-                    <h3 className="text-2xl md:text-5xl font-black text-slate-950 tracking-tighter uppercase leading-tight">
+                    {/* 解決策: 画面幅に合わせて文字サイズを3段階で調整 */}
+                    <h3 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-950 tracking-tighter uppercase leading-[0.9] break-words">
                       {card.title}
                     </h3>
                   </motion.div>

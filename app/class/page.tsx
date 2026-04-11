@@ -13,7 +13,7 @@ export default function Class() {
         <div className="grid gap-8">
           <section className="border-l-4 border-red-600 pl-6">
             <h2 className="text-xl font-bold text-slate-900">千葉工業大学 (CIT)</h2>
-            <p className="text-slate-500 italic">2023 - 2027 (Expected)</p>
+            <p className="text-slate-500 italic">2024 - 2024 (Expected)</p>
             <p className="mt-2 text-slate-600">情報通信システム工学科。ネットワーク、データ通信、人工知能の基礎を幅広く学んでいます。</p>
           </section>
 

@@ -6,9 +6,34 @@ import { useState, useEffect } from "react";
 
 export default function Home() {
   const [showIntro, setShowIntro] = useState(true);
+  // アニメーション設定を保持するステート（初期値は右から左）
+  const [animationProps, setAnimationProps] = useState({
+    initial: { x: "100vw", y: 0 },
+    animate: { x: "-100vw", y: 0 },
+  });
 
-  // イントロの表示時間（流れるアニメーションが5秒なので、5.5秒に設定）
+  // コンポーネントマウント時にランダムなアニメーション方向を選択
   useEffect(() => {
+    // 画面の高さ（縦移動時にテキストを完全に画面外に出すため、少し余裕を持たせる）
+    const height = window.innerHeight * 1.2;
+
+    const animationVariants = [
+      // 1. 左から右 (Left to Right)
+      { initial: { x: "-100vw", y: 0 }, animate: { x: "100vw", y: 0 } },
+      // 2. 右から左 (Right to Left)
+      { initial: { x: "100vw", y: 0 }, animate: { x: "-100vw", y: 0 } },
+      // 3. 上から下 (Top to Bottom)
+      { initial: { x: 0, y: `-${height}px` }, animate: { x: 0, y: `${height}px` } },
+      // 4. 下から上 (Bottom to Top)
+      { initial: { x: 0, y: `${height}px` }, animate: { x: 0, y: `-${height}px` } },
+    ];
+
+    // ランダムにインデックスを選択 (0〜3)
+    const randomIndex = Math.floor(Math.random() * animationVariants.length);
+    // 選択されたバリアントを設定
+    setAnimationProps(animationVariants[randomIndex]);
+
+    // イントロを終了するタイマー（5.5秒）
     const timer = setTimeout(() => {
       setShowIntro(false);
     }, 5500);
@@ -42,12 +67,12 @@ export default function Home() {
       gridClass: "md:col-span-2",
       bgClass: "bg-red-50/50",
       icon: <ExternalLink className="text-red-500" size={24} />,
-      link: "/vision" // ← ここを "#" から "/vision" に修正しました
+      link: "/vision" // 修正済み
     }
   ];
 
   return (
-    <div className="min-h-screen bg-white font-sans overflow-x-hidden">
+    <div className="min-h-screen bg-white font-sans overflow-x-hidden relative">
       <AnimatePresence>
         {showIntro ? (
           /* --- スプラッシュ画面（虹色アニメーション） --- */
@@ -57,14 +82,15 @@ export default function Home() {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[100] flex items-center justify-center bg-white overflow-hidden"
           >
+            {/* 移動するコンポーネント */}
             <motion.div
-              initial={{ x: "100vw" }}
-              animate={{ x: "-100vw" }}
-              transition={{ duration: 5, ease: "linear" }} // ゆっくり流れる設定（5秒）
-              className="whitespace-nowrap"
+              initial={animationProps.initial} // ランダムな初期位置
+              animate={animationProps.animate} // ランダムな終了位置
+              transition={{ duration: 5, ease: "linear" }} // 速度は5秒で一定
+              className="whitespace-nowrap flex items-center justify-center" // 中央寄せを追加
             >
               <h1 
-                className="text-[18vw] md:text-[12vw] font-black tracking-tighter uppercase animate-rainbow-shimmer"
+                className="text-[18vw] md:text-[12vw] font-black tracking-tighter uppercase animate-rainbow-shimmer text-center" // text-centerを追加
                 style={{
                   background: "linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff, #ff0000)",
                   backgroundSize: "200% auto",

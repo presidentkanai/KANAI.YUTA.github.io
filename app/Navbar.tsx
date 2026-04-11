@@ -7,17 +7,18 @@ import Link from "next/link";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
-  // メニューに表示する項目
+  // --- メニューに表示する項目（ここにVisionを追加しました） ---
   const menuItems = [
     { name: "Home", href: "/" },
     { name: "About Me", href: "/about" },
     { name: "Class", href: "/class" },
     { name: "Main Project", href: "/othello" },
+    { name: "Vision", href: "/vision" }, // ← 追加
   ];
 
   return (
     <>
-      {/* 1. 右上の三本線ボタン：absoluteに変更してページ上部に固定 */}
+      {/* 1. 右上の三本線ボタン（スクロールで消えるよう absolute 設定） */}
       <button
         onClick={() => setIsOpen(true)}
         className="absolute top-6 right-6 z-[60] p-3 bg-white/80 backdrop-blur-md border border-slate-100 rounded-2xl shadow-sm hover:border-red-500 transition-colors group"
@@ -35,7 +36,7 @@ export default function Navbar() {
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
             className="fixed inset-0 z-[70] bg-white flex flex-col p-8 md:p-24"
           >
-            {/* 閉じるボタン（こちらは常に画面の右上に固定） */}
+            {/* 閉じるボタン */}
             <div className="flex justify-end">
               <button
                 onClick={() => setIsOpen(false)}
@@ -56,7 +57,7 @@ export default function Navbar() {
                 >
                   <Link
                     href={item.href}
-                    onClick={() => setIsOpen(false)}
+                    onClick={() => setIsOpen(false)} // クリックしたら閉じる
                     className="group flex items-center justify-between py-4 border-b border-slate-100"
                   >
                     <span className="text-4xl md:text-7xl font-black text-slate-950 tracking-tighter uppercase group-hover:text-red-600 transition-colors">

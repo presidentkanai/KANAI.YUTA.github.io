@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 // app フォルダ内の favicon.ico を画像としてインポートします
-import Favicon from ".public/IMG_1039.jpeg";
+import Favicon from ".IMG_1039.jpeg";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

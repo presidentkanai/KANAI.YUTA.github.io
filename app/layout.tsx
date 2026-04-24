@@ -2,8 +2,11 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "./Navbar";
-import Link from "next/link";   // ← 【追加】リンク機能
-import Image from "next/image"; // ← 【追加】画像表示機能
+import Link from "next/link";
+import Image from "next/image";
+
+// app フォルダ内の favicon.ico を画像としてインポートします
+import Favicon from "./favicon.ico";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,11 +33,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-slate-900`}
       >
-        {/* --- 【追加箇所】左上のリセットボタン --- */}
+        {/* 左上のリセットボタン */}
         <div className="fixed top-5 left-5 z-[60]">
           <Link href="/" scroll={true}>
             <Image
-              src="/favicon.ico" // publicフォルダにfavicon.icoを置いている前提
+              src={Favicon}
               alt="Reset"
               width={40}
               height={40}
@@ -42,11 +45,11 @@ export default function RootLayout({
             />
           </Link>
         </div>
-        {/* -------------------------------------- */}
 
+        {/* 全ページ共通のナビゲーションメニュー */}
         <Navbar />
 
-        {/* 各ページの中身 */}
+        {/* 各ページの内容が表示される場所 */}
         {children}
       </body>
     </html>

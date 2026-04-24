@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "./Navbar";
 import Link from "next/link";   // ← 【追加】リンク機能
-import Image from "app/favicon.ico"; // ← 【追加】画像表示機能
+import Image from "next/image"; // ← 【追加】画像表示機能
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
